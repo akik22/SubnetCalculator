@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 
 
+# This part takes the Input and converts IP,Subnet Mask to Integer.
+
+print()
 while True:
     try:
         given_input = input('Please provide IP address in XXX:XXX:XXX:XXX/YY this format: ')
@@ -10,17 +13,22 @@ while True:
         break
     except:
         print()
-        print('Please follow the format \n')
+        print('Please follow the format')
 
+
+# This Part converts the whole IP to Binary. zfill is used to complete the octate till 8
 
 IP_in_binary = [i[2:].zfill(8) for i in list(map(bin,ip))]
-
 IP_binary_string = ''.join(IP_in_binary)
 
+
+# This part separates Host ID and Host Bits
 
 Host_ID = IP_binary_string[0:subnet_mask_number]
 Host_bits = 32-subnet_mask_number
 
+
+# Network, BroadCast, First IP bits, and Last IP bits are calculated
 
 Network_bits = '0'*Host_bits
 Broadcast_bits = '1'*Host_bits
@@ -28,12 +36,18 @@ First_IP_bits = '0'*(Host_bits-1) + '1'
 Last_IP_bits = '1'*(Host_bits-1) + '0'
 
 
+# Create the Network,Broadcas,IP Binary strings
+
 Network_address_binary_string = Host_ID+Network_bits
 Broadcast_address_binary_string = Host_ID+Broadcast_bits
 First_IP_address_binary_string = Host_ID+First_IP_bits
 Last_IP_address_binary_string = Host_ID+ Last_IP_bits
+subnet_mask_binary_string = ('1'*subnet_mask_number) + '0'*(32-subnet_mask_number)
 
-def binaray_To_String(binary_string):
+
+# This function converts IP binary strings to IP addresses
+
+def binary_string_to_IP(binary_string):
     octate = []
     count = 0
     IP = []
@@ -48,12 +62,12 @@ def binaray_To_String(binary_string):
     return '.'.join(IP)
 
 
-subnet_mask_string = ('1'*subnet_mask_number) + '0'*(32-subnet_mask_number)
+# Printing all the output
 
 print()
-print('Network ID: {}'.format(binaray_To_String(Network_address_binary_string)))
-print('Broadcast Address: {}'.format(binaray_To_String(Broadcast_address_binary_string)))
-print('Subnet Mask: {}'.format(binaray_To_String(subnet_mask_string)))
-print('Usable IP range: {} to {}'.format(binaray_To_String(First_IP_address_binary_string),binaray_To_String(Last_IP_address_binary_string)))
-
+print('Network ID: {}'.format(binary_string_to_IP(Network_address_binary_string)))
+print('Broadcast Address: {}'.format(binary_string_to_IP(Broadcast_address_binary_string)))
+print('Subnet Mask: {}'.format(binary_string_to_IP(subnet_mask_binary_string)))
+print('Usable IP range: {} - {}'.format(binary_string_to_IP(First_IP_address_binary_string),binary_string_to_IP(Last_IP_address_binary_string)))
+print()
 
