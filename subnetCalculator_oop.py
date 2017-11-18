@@ -4,8 +4,8 @@ class SubnetCalculator(object):
 
     def __init__(self,given_input):
         IP, subnet_mask_prefix = given_input.split('/')
-        IP = list(map(int, IP.split('.')))
-        IP_in_binary = [i[2:].zfill(8) for i in list(map(bin,IP))]
+        IP = map(int, IP.split('.'))
+        IP_in_binary = [i[2:].zfill(8) for i in map(bin,IP)]
         IP_binary_string = ''.join(IP_in_binary)
         self.subnet_mask_prefix = int(subnet_mask_prefix)
         self.Host_ID = IP_binary_string[0:self.subnet_mask_prefix]
