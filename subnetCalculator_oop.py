@@ -28,21 +28,21 @@ class SubnetCalculator(object):
         return '.'.join(IP)
 
 
-    def Network_ID(self):
+    def network_id(self):
         Network_bits = '0'*self.Host_bits
         Network_address_binary_string = self.Host_ID + Network_bits
         return self.binary_string_to_IP(Network_address_binary_string)
 
-    def Broadcast_Address(self):
+    def broadcast_address(self):
         Broadcast_bits = '1' * self.Host_bits
         Broadcast_address_binary_string = self.Host_ID + Broadcast_bits
         return self.binary_string_to_IP(Broadcast_address_binary_string)
 
-    def Subnet_mask(self):
+    def subnet_mask(self):
         subnet_mask_binary_string = ('1' * self.subnet_mask_prefix) + '0' * (32 - self.subnet_mask_prefix)
         return self.binary_string_to_IP(subnet_mask_binary_string)
 
-    def Usable_IP_Range(self):
+    def usable_ip_range(self):
         First_IP_bits = '0' * (self.Host_bits - 1) + '1'
         Last_IP_bits = '1' * (self.Host_bits - 1) + '0'
         First_IP_address_binary_string = self.Host_ID + First_IP_bits
@@ -53,10 +53,10 @@ class SubnetCalculator(object):
 
 a = SubnetCalculator('192.168.0.2/24')
 
-networkID = a.Network_ID()
-broadcast = a.Broadcast_Address()
-subnetMask = a.Subnet_mask()
-ipRange = a.Usable_IP_Range()
+networkID = a.network_id()
+broadcast = a.broadcast_address()
+subnetMask = a.subnet_mask()
+ipRange = a.usable_ip_range()
 
 
 print(networkID)
